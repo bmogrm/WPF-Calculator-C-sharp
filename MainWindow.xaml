@@ -1,0 +1,57 @@
+﻿<Window x:Class="wpfCalculated.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfCalculated"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="530" MaxHeight="530" MinWidth="515" MaxWidth="515"
+        d:DataContext="{d:DesignInstance {x:Type local:ViewModel}}">
+
+
+    <Grid>
+        <TextBox x:Name="text1" HorizontalAlignment="Center" Margin="0,161,0,0" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Top" Width="480" Height="45"/>
+        <ListBox ItemsSource="{Binding CalculationHistory}" Margin="10,10,10,335"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="("
+            Content="(" HorizontalAlignment="Left" Margin="11,211,0,0" VerticalAlignment="Top" Height="50" Width="117" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter=")"
+            Content=")" HorizontalAlignment="Left" Margin="133,211,0,0" VerticalAlignment="Top" Height="50" Width="117" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding clearOnceCommand}" CommandParameter=""
+                Content="D" HorizontalAlignment="Left" Margin="255,211,0,0" VerticalAlignment="Top" Height="50" Width="117" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding clearCommand}" CommandParameter=""
+                Content="AC" HorizontalAlignment="Left" Margin="377,211,0,0" VerticalAlignment="Top" Height="50" Width="114" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="7"
+                Content="7" HorizontalAlignment="Left" Margin="11,266,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="8"
+                Content="8" HorizontalAlignment="Left" Margin="133,266,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="9"
+                Content="9" HorizontalAlignment="Left" Margin="255,266,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="/"
+                Content="/" HorizontalAlignment="Left" Margin="377,266,0,0" VerticalAlignment="Top" Height="50" Width="114" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="4"
+                Content="4" HorizontalAlignment="Left" Margin="11,321,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="5"
+                Content="5" HorizontalAlignment="Left" Margin="133,321,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="6"
+                Content="6" HorizontalAlignment="Left" Margin="255,321,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="*"
+                Content="X" HorizontalAlignment="Left" Margin="377,321,0,0" VerticalAlignment="Top" Height="50" Width="114" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="1"
+                Content="1" HorizontalAlignment="Left" Margin="11,376,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="2"
+                Content="2" HorizontalAlignment="Left" Margin="133,376,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="3"
+                Content="3" HorizontalAlignment="Left" Margin="255,376,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="-"
+                Content="-" HorizontalAlignment="Left" Margin="377,376,0,0" VerticalAlignment="Top" Height="50" Width="114" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="0"
+                Content="0" HorizontalAlignment="Left" Margin="11,431,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter=","
+                Content="," HorizontalAlignment="Left" Margin="133,431,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF818181" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding calculateCommand}" CommandParameter="="
+            Content="=" HorizontalAlignment="Left" Margin="255,431,0,0" VerticalAlignment="Top" Height="50" Width="117" Background="#FF81B2FF" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+        <Button Command="{Binding addToTextBoxCommand}" CommandParameter="+"
+                Content="+" HorizontalAlignment="Left" Margin="377,431,0,0" VerticalAlignment="Top" Height="50" Width="114" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#FFEEEEEE"/>
+
+    </Grid>
+</Window>
