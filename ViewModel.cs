@@ -47,7 +47,7 @@ namespace wpfCalculated
         {
             if (!string.IsNullOrEmpty(Result))
             {
-                if (Result.Contains('='))
+                if (Result.Contains('=') || Result == "Ошибка")
                 {
                     Result = string.Empty;
                 }
@@ -61,7 +61,25 @@ namespace wpfCalculated
             if (!string.IsNullOrEmpty(Result))
             {
                 _model.s = Result;
-                Result =  _model.ProcE().ToString();
+                if(isOddBrackets())
+                {
+                    Result = "Ошибка";
+                    AddToHistory(_model.s + "  Ошибка");
+                    _model.isErrorPars = false;
+                    _model.i = 0;
+                    return;
+                }
+                Result = _model.ProcE().ToString();
+                if(_model.isErrorPars)
+                {
+                    Result = "Ошибка";
+                    AddToHistory(_model.s + "  Ошибка");
+                    _model.isErrorPars = false;
+                    _model.i = 0;
+                    return;
+                }
+                _model.isErrorPars = false;
+                _model.i = 0;
                 AddToHistory(_model.s + " = " + Result);
             }
         }
@@ -74,6 +92,22 @@ namespace wpfCalculated
         private void ExecuteClearOnce(object parameter)
         {
             Result = Result.Remove(Result.Length - 1);
+        }
+
+        public bool isOddBrackets()
+        {
+            int openBrackets = 0, closeBrackets = 0;
+            for(int i = 0; i < _model.s.Length; i++)
+            {
+                char ch = _model.s[i];
+                if (ch == '(') openBrackets++;
+                if (ch == ')') closeBrackets++;
+            }
+            if (openBrackets != closeBrackets)
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -103,10 +137,6 @@ namespace wpfCalculated
             OnPropertyChanged(nameof(CalculationHistory));
         }
     }
-
-
-
-
 
     public class RelayCommand : ICommand
     {
