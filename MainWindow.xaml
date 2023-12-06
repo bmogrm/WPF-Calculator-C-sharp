@@ -11,13 +11,14 @@
     
     <Window.InputBindings>
         <KeyBinding Key="Backspace" Command="{Binding calculateCommand}"/>
+        <KeyBinding Key="" Command="{Binding addToTextBoxCommand}" CommandParameter=""/>
     </Window.InputBindings>
 
 
     <Grid>
         
         <TextBox x:Name="text1" FontSize="24" HorizontalAlignment="Center" Margin="0,161,0,0" TextWrapping="NoWrap" Text="{Binding Result}" VerticalAlignment="Top" Width="480" Height="45"/>
-        <ListBox ItemsSource="{Binding CalculationHistory}" Margin="10,10,10,335" FontSize="18"/>
+        <ListBox ItemsSource="{Binding CalculationHistory}" Margin="10,10,10,335" FontSize="17"/>
         <Button Command="{Binding addToTextBoxCommand}" CommandParameter="("
             Content="(" HorizontalAlignment="Left" Margin="11,211,0,0" VerticalAlignment="Top" Height="50" Width="117" FontFamily="Arial Unicode MS" FontSize="22" FontWeight="Bold" Foreground="#000"/>
         <Button Command="{Binding addToTextBoxCommand}" CommandParameter=")"

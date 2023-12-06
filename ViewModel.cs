@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Amazon.Runtime.Internal;
+using MongoDB.Driver;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace wpfCalculated
 {
@@ -16,6 +23,7 @@ namespace wpfCalculated
     {
         private readonly Calculator _model;
         private string _result;
+        string connStr = "server=92.246.214.15;port=3306;user=ais_skorba1854_calculatedwpf;database=ais_skorba1854_calculatedwpf;password=r9vqj25IGEYMhgV3ICHhYkkI;";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,6 +49,7 @@ namespace wpfCalculated
             addToTextBoxCommand = new RelayCommand(ExecuteAdd);
             clearCommand = new RelayCommand(ExecuteClear);
             clearOnceCommand = new RelayCommand(ExecuteClearOnce);
+            LoadFromBD();
         }
 
         private void ExecuteAdd(object parameter)
@@ -134,7 +143,69 @@ namespace wpfCalculated
                 CalculationHistory.RemoveAt(0);
             }
             CalculationHistory.Add(calculation);
+            SaveInBD();
+            SaveInFile();
+
             OnPropertyChanged(nameof(CalculationHistory));
+        }
+
+        public void SaveInBD()
+        {
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+            string requestInServer = "INSERT INTO `Calculator`(`input`, `result`) VALUES(@_model.s, @Result)";
+            MySqlCommand comand = new MySqlCommand(requestInServer, conn);
+            comand.Parameters.AddWithValue("@_model.s", _model.s);
+            comand.Parameters.AddWithValue("@Result", Result);
+            comand.ExecuteScalar();
+            conn.Close();
+            
+        }
+
+        public void SaveInFile() 
+        {
+            string fileName = "C:\\Rodion\\Учеба\\3 курс\\ТРПО\\wpfCalculated\\wpfCalculated\\example.txt"; // Имя файла
+            string content = _model.s + '=' + Result + '\n'; // Содержимое, которое нужно сохранить
+            File.Exists(fileName);
+            File.AppendAllText(fileName, content); // Записываем содержимое в файл
+        }
+
+        public void LoadFromBD()
+        {
+            string request = "SELECT `input` FROM `Calculator` ORDER BY id DESC LIMIT 4,1;";
+            string request2 = "SELECT `result` FROM `Calculator` ORDER BY id DESC LIMIT 4,1;";
+            ParseFromDB(request, request2);
+            request = "SELECT `input` FROM `Calculator` ORDER BY id DESC LIMIT 3,1;";
+            request2 = "SELECT `result` FROM `Calculator` ORDER BY id DESC LIMIT 3,1;";
+            ParseFromDB(request, request2);
+            request = "SELECT `input` FROM `Calculator` ORDER BY id DESC LIMIT 2,1;";
+            request2 = "SELECT `result` FROM `Calculator` ORDER BY id DESC LIMIT 2,1;";
+            ParseFromDB(request, request2);
+            request = "SELECT `input` FROM `Calculator` ORDER BY id DESC LIMIT 1,1;";
+            request2 = "SELECT `result` FROM `Calculator` ORDER BY id DESC LIMIT 1,1;";
+            ParseFromDB(request, request2);
+            request = "SELECT `input` FROM `Calculator` ORDER BY id DESC LIMIT 1;";
+            request2 = "SELECT `result` FROM `Calculator` ORDER BY id DESC LIMIT 1;";
+            ParseFromDB(request, request2);
+        }
+
+        public void ParseFromDB(string request, string request2)
+        {
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+            MySqlCommand comand = new MySqlCommand(request, conn);
+            MySqlCommand comand2 = new MySqlCommand(request2, conn);
+            object strRequest = comand.ExecuteScalar();
+            object strRequest2 = comand2.ExecuteScalar();
+            try
+            {
+                CalculationHistory.Add(strRequest.ToString() + '=' + strRequest2.ToString());
+            }
+            catch
+            {
+
+            }
+            conn.Close();
         }
     }
 
