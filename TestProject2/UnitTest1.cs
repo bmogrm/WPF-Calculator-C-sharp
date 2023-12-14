@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using FluentAssertions;
-using wpfCalculated;
+using WpfLibrary1;
 using Xunit;
 namespace UnitTest
 {
@@ -11,7 +11,7 @@ namespace UnitTest
         public void Slozenie_two_plus_two()
         {
             _calculator.s = "2+2\0";
-            _calculator.i = 0; 
+            _calculator.i = 0;
             double result = _calculator.ProcE();
             Assert.Equal(4, result);
         }
@@ -76,4 +76,3 @@ namespace UnitTest
         }
     }
 }
-

@@ -1,20 +1,6 @@
-ï»¿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
-
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 
-namespace wpfCalculated
+namespace WpfLibrary1
 {
     public class Calculator
     {
@@ -22,7 +8,7 @@ namespace wpfCalculated
         public string s = "";
         public bool isErrorPars;
 
-        public double ProcE() //Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ 
+        public double ProcE() //ðåçóëüòàò 
         {
             s += '\0';
             double x = ProcT();
@@ -66,43 +52,43 @@ namespace wpfCalculated
             return x;
         }
 
-            public double ProcM()
+        public double ProcM()
+        {
+            double x = 0;
+            if (s[i] == '(')
             {
-                double x = 0;
-                if (s[i] == '(')
+                i++;
+                x = ProcE();
+                if (s[i] != ')')
+                {
+                    isErrorPars = true;
+                    return -1;
+                }
+                i++;
+            }
+            else
+            {
+                if (s[i] == '-')
                 {
                     i++;
-                    x = ProcE();
-                    if (s[i] != ')')
+                    x -= ProcM();
+                }
+                else
+                {
+                    if (s[i] >= '0' && s[i] <= '9')
+                    {
+                        x = ProcC();
+                    }
+                    else
                     {
                         isErrorPars = true;
                         return -1;
                     }
-                    i++;
                 }
-                else
-                {
-                    if (s[i] == '-')
-                    {
-                        i++;
-                        x -= ProcM();
-                    }
-                    else
-                    {
-                        if (s[i] >= '0' && s[i] <= '9')
-                        {
-                            x = ProcC();
-                        }
-                        else
-                        {
-                            isErrorPars = true;
-                            return -1;
-                        }
-                    }
-                }
-                return x;
-                
             }
+            return x;
+
+        }
 
         public double ProcC()
         {
