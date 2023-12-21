@@ -12,7 +12,7 @@ namespace wpfCalculated
             IMemory files = new Files();
             IMemory memory = new Memory();
 
-            DataContext = new ViewModel(dataBased);   
+            DataContext = new ViewModel(files);   
         }
     }
 }

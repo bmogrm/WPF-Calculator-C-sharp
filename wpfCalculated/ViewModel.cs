@@ -36,15 +36,7 @@ namespace wpfCalculated
             _model = new Calculator();
             string[] forHistory = new string[5];
             forHistory = _memory.LoadIt();
-            try
-            {
-                CalculationHistory.Add(forHistory[0]);
-                CalculationHistory.Add(forHistory[1]);
-                CalculationHistory.Add(forHistory[2]);
-                CalculationHistory.Add(forHistory[3]);
-                CalculationHistory.Add(forHistory[4]);
-            }
-            catch{}
+            CalculationHistory = new(_memory.LoadIt());
             CalculateCommand = new RelayCommand(ExecuteCalculate);
             AddToTextBoxCommand = new RelayCommand(ExecuteAdd);
             ClearCommand = new RelayCommand(ExecuteClear);

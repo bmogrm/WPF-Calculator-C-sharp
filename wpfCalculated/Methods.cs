@@ -89,7 +89,10 @@ namespace wpfCalculated
             {
                 File.AppendAllText(fileName, content);
             }
-            else File.Create(fileName);
+            else
+            {
+                File.WriteAllText(fileName, content);
+            }
         }
 
         public string[] LoadIt()
