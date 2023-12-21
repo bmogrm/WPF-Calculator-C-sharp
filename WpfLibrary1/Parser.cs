@@ -8,6 +8,22 @@ namespace WpfLibrary1
         public string s = "";
         public bool isErrorPars;
 
+        public bool IsOddBrackets()
+        {
+            int openBrackets = 0, closeBrackets = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                char ch = s[i];
+                if (ch == '(') openBrackets++;
+                if (ch == ')') closeBrackets++;
+            }
+            if (openBrackets != closeBrackets)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public double ProcE() //результат 
         {
             s += '\0';
@@ -30,6 +46,7 @@ namespace WpfLibrary1
                     x -= ProcT();
                 }
             }
+            isErrorPars = IsOddBrackets();
             return Math.Round(x, 5);
         }
 

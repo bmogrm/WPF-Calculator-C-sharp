@@ -69,14 +69,6 @@ namespace wpfCalculated
             if (!string.IsNullOrEmpty(Result))
             {
                 _model.s = Result;
-                if (IsOddBrackets())
-                {
-                    Result = "Ошибка";
-                    AddToHistory(_model.s + "  Ошибка");
-                    _model.isErrorPars = false;
-                    _model.i = 0;
-                    return;
-                }
                 Result = _model.ProcE().ToString();
                 if (_model.isErrorPars)
                 {
@@ -90,21 +82,6 @@ namespace wpfCalculated
                 _model.i = 0;
                 AddToHistory(_model.s + " = " + Result);
             }
-        }
-        public bool IsOddBrackets()
-        {
-            int openBrackets = 0, closeBrackets = 0;
-            for (int i = 0; i < _model.s.Length; i++)
-            {
-                char ch = _model.s[i];
-                if (ch == '(') openBrackets++;
-                if (ch == ')') closeBrackets++;
-            }
-            if (openBrackets != closeBrackets)
-            {
-                return true;
-            }
-            return false;
         }
 
         private void ExecuteClear(object parameter)
